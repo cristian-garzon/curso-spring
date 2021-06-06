@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/cammons-alumnos/cammons-alumnos.iml" filepath="$PROJECT_DIR$/cammons-alumnos/cammons-alumnos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cammons-microservicios/cammons-microservicios.iml" filepath="$PROJECT_DIR$/cammons-microservicios/cammons-microservicios.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/curso-spring.iml" filepath="$PROJECT_DIR$/.idea/curso-spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-cursos/microservicios-cursos.iml" filepath="$PROJECT_DIR$/microservicios-cursos/microservicios-cursos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-eureka/microservicios-eureka.iml" filepath="$PROJECT_DIR$/microservicios-eureka/microservicios-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-zuul/microservicios-zuul.iml" filepath="$PROJECT_DIR$/microservicios-zuul/microservicios-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microservicios-usuarios/spring-cloud.iml" filepath="$PROJECT_DIR$/microservicios-usuarios/spring-cloud.iml" />
     </modules>
   </component>
 </project>

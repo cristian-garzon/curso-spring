@@ -2,16 +2,16 @@ package com.cursoSpring.microservicios.cammons.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 
-public class CammonServiceImpl<E,R extends CrudRepository<E,Long>> implements CammonService<E> {
+public class CammonServiceImpl<E,R extends JpaRepository<E,Long>> implements CammonService<E> {
 
     @Autowired
-    protected R repository;
+    protected R repository ;
 
     @Override
     @Transactional(readOnly = true)
