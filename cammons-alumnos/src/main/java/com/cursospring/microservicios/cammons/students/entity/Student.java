@@ -10,7 +10,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String surname;
     private String email;
@@ -22,7 +22,7 @@ public class Student {
     public void date(){
         this.createAt = new Date();
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,7 +42,7 @@ public class Student {
         this.createAt = createAt;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -67,7 +67,7 @@ public class Student {
         if (this == o) return true;
         if(!(o instanceof Student)) return false;
         Student student = (Student) o;
-        return this.id == student.getId();
+        return this.id != null && this.id.equals(student.id);
     }
 
 

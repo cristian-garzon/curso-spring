@@ -1,5 +1,6 @@
 package com.cursospring.microservicios.app.cursos.entity;
 
+import com.cursopring.microservicios.cammons.examenes.Exams;
 import com.cursospring.microservicios.cammons.students.entity.Student;
 
 import javax.persistence.*;
@@ -21,13 +22,16 @@ public class Course {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Student> student;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Exams> exam;
     @PrePersist
     public void date(){
         this.createAt = new Date();
     }
 
     public Course() {
-        this.student = new ArrayList<>();
+       this.student = new ArrayList<>();
+       this.exam = new ArrayList<>();
     }
 
     public void setStudent(List<Student> student) {
@@ -70,5 +74,17 @@ public class Course {
         return createAt;
     }
 
+    public List<Exams> getExam() {
+        return exam;
+    }
 
+    public void setExam(List<Exams> exam) {
+        this.exam = exam;
+    }
+    public void addExam(Exams exam) {
+        this.exam.add(exam);
+    }
+    public void removeExam(Exams exam) {
+        this.exam.remove(exam) ;
+    }
 }

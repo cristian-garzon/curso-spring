@@ -1,6 +1,7 @@
 package com.cursospring.microservicios.app.cursos.controller;
 
 import com.cursoSpring.microservicios.cammons.controller.CammonController;
+import com.cursopring.microservicios.cammons.examenes.Exams;
 import com.cursospring.microservicios.app.cursos.entity.Course;
 import com.cursospring.microservicios.app.cursos.service.CourseService;
 import com.cursospring.microservicios.cammons.students.entity.Student;
@@ -37,5 +38,31 @@ public class CourseController extends CammonController<Course, CourseService> {
         if(course.isEmpty()) return ResponseEntity.notFound().build();
         course.get().removeStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(course.get()));
+    }
+    @GetMapping("/search_student/{id}")
+    public ResponseEntity<?> findByStudent(@PathVariable Long id){
+        return ResponseEntity.ok(service.findByIdAlumno(id));
+    }
+
+    @PutMapping("/add_exam/{id}")
+    public ResponseEntity<?> addExam(@RequestBody List<Exams> exams, @PathVariable Long id){
+        Optional<Course> course = service.findById(id);
+        if(course.isEmpty()) return ResponseEntity.notFound().build();
+        for(Exams exam : exams){
+            course.get().addExam(exam);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(course.get()));
+    }
+    @PutMapping("/delete_exam/{id}")
+    public ResponseEntity<?> deleteExam(@RequestBody Exams exam, @PathVariable Long id){
+       Optional<Course> course = service.findById(id);
+       if (course.isEmpty()) return ResponseEntity.notFound().build();
+       course.get().removeExam(exam);
+       return ResponseEntity.status(HttpStatus.CREATED).body(service.save(course.get()));
+    }
+
+    @GetMapping("search_exam/{id}")
+    public ResponseEntity<?> findByExam(@PathVariable Long id){
+        return ResponseEntity.ok(service.FindByIdExam(id));
     }
 }

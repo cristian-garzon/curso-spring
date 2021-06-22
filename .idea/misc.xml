@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/cammons-microservicios/pom.xml" />
         <option value="$PROJECT_DIR$/microservicios-cursos/pom.xml" />
         <option value="$PROJECT_DIR$/cammons-alumnos/pom.xml" />
+        <option value="$PROJECT_DIR$/microservicios-examenes/pom.xml" />
+        <option value="$PROJECT_DIR$/cammons-examenes/pom.xml" />
       </list>
     </option>
   </component>

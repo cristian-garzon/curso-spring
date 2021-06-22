@@ -26,7 +26,7 @@ public class StudentController extends CammonController<Student, StudentService>
 
     @GetMapping("/search/{name}")
     public ResponseEntity<?> search(@PathVariable String name){
-        return ResponseEntity.ok(service.search( name));
+        return ResponseEntity.ok(service.search(name));
     }
 
 }
