@@ -2,13 +2,16 @@ package com.cursoSpring.microservicios.cammons.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 
-public class CammonServiceImpl<E,R extends JpaRepository<E,Long>> implements CammonService<E> {
+public class CammonServiceImpl<E,R extends PagingAndSortingRepository<E,Long>> implements CammonService<E> {
 
     @Autowired
     protected R repository ;
@@ -17,6 +20,12 @@ public class CammonServiceImpl<E,R extends JpaRepository<E,Long>> implements Cam
     @Transactional(readOnly = true)
     public Iterable<E> list() {
         return repository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<E> list(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override

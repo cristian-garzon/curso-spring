@@ -1,8 +1,11 @@
 package com.cursospring.microservicios.cammons.students.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "students")
@@ -11,13 +14,28 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String surname;
+
+    @NotEmpty
+    @Email
     private String email;
+
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @Lob
+    @JsonIgnore
+    private byte[] photo;
+
+    public Integer getPhotoHashcode(){
+        return (this.photo != null) ? this.photo.hashCode() : null;
+    }
     @PrePersist
     public void date(){
         this.createAt = new Date();
@@ -70,5 +88,11 @@ public class Student {
         return this.id != null && this.id.equals(student.id);
     }
 
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
 }

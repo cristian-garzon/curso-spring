@@ -3,12 +3,14 @@ package com.cursopring.microservicios.cammons.examenes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String text;
 
     @JsonIgnoreProperties(value = {"questions"})

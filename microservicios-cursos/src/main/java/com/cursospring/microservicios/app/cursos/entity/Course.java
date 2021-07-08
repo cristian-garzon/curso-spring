@@ -4,6 +4,7 @@ import com.cursopring.microservicios.cammons.examenes.Exams;
 import com.cursospring.microservicios.cammons.students.entity.Student;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotEmpty
     private String name;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)

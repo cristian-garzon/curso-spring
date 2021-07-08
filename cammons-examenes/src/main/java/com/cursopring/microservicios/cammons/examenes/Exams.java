@@ -3,26 +3,33 @@ package com.cursopring.microservicios.cammons.examenes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Exams {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty
     private String name;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
+
+    @Transient
+    private boolean answered;
 
     @JsonIgnoreProperties(value = {"exam"}, allowSetters = true)
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Questions> questions;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Subject subject;
 
     public Exams(){
@@ -74,6 +81,14 @@ public class Exams {
 
     public Date getCreateAt() {
         return createAt;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
+
+    public boolean isAnswered() {
+        return answered;
     }
 
     @Override
