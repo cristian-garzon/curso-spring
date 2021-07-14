@@ -1,6 +1,6 @@
-package com.cursoSpring.microservicios.app.users.controller;
+package com.cursospring.microservicios.app.users.controller;
 
-import com.cursoSpring.microservicios.app.users.service.StudentService;
+import com.cursospring.microservicios.app.users.service.StudentService;
 import com.cursoSpring.microservicios.cammons.controller.CammonController;
 import com.cursospring.microservicios.cammons.students.entity.Student;
 import org.springframework.core.io.ByteArrayResource;
@@ -67,4 +67,9 @@ public class StudentController extends CammonController<Student, StudentService>
         return ResponseEntity.ok(service.findListStudents(ids));
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        service.deleteCourseStudent(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.plaf.synth.SynthToolTipUI;
 import java.util.List;
 
 @Service
@@ -47,6 +46,7 @@ public class CourseServiceImpl extends CammonServiceImpl<Course, CourseRepo> imp
     }
 
     @Override
+    @Transactional
     public void DeleteCourseStudentByStudentId(Long id) {
         repository.DeleteCourseStudentByStudentId(id);
     }

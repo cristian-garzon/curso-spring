@@ -1,10 +1,13 @@
-package com.cursoSpring.microservicios.app.users;
+package com.cursospring.microservicios.app.users;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+
+@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
 @EntityScan({"com.cursospring.microservicios.cammons.students.entity"})
