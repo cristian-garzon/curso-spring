@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -60,4 +61,10 @@ public class StudentController extends CammonController<Student, StudentService>
         if(!file.isEmpty()) studentUpdated.get().setPhoto(file.getBytes());
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(studentUpdated.get()));
     }
+
+    @GetMapping("/list_students")
+    public ResponseEntity<?> listStudents(@RequestParam List<Long> ids){
+        return ResponseEntity.ok(service.findListStudents(ids));
+    }
+
 }

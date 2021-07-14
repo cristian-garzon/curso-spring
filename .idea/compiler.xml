@@ -7,15 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cammons-examenes" />
-        <module name="microservicios-eureka" />
         <module name="spring-cloud" />
+        <module name="microservicios-eureka" />
         <module name="microservicios-gateway" />
         <module name="cammons-microservicios" />
+        <module name="microservicios-usuarios" />
         <module name="microservicios-examenes" />
         <module name="microservicios-cursos" />
         <module name="microservicio-respuestas" />
-        <module name="microservicios-zuul" />
         <module name="cammons-alumnos" />
+        <module name="microservicios-zuul" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +28,7 @@
       <module name="microservicios-eureka" target="11" />
       <module name="microservicios-examenes" target="11" />
       <module name="microservicios-gateway" target="11" />
+      <module name="microservicios-usuarios" target="11" />
       <module name="microservicios-zuul" target="11" />
       <module name="spring-cloud" target="11" />
     </bytecodeTargetLevel>
@@ -41,6 +43,7 @@
       <module name="microservicios-eureka" options="-parameters" />
       <module name="microservicios-examenes" options="-parameters" />
       <module name="microservicios-gateway" options="-parameters" />
+      <module name="microservicios-usuarios" options="-parameters" />
       <module name="microservicios-zuul" options="-parameters" />
       <module name="spring-cloud" options="-parameters" />
     </option>

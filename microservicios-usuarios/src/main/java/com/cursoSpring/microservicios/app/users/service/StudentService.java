@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface StudentService extends CammonService<Student> {
     public List<Student> search(String text);
+    public Iterable<Student> findListStudents(Iterable<Long> ids);
 }

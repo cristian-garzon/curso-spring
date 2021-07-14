@@ -16,6 +16,12 @@ public class StudentServiceImpl extends CammonServiceImpl<Student, StudentRepo> 
     @Override
     @Transactional(readOnly = true)
     public List<Student> search(String text) {
-        return repository.findByNameStartingWithOrSurnameStartingWith(text, text);
+        return repository.findByNameStartingWithOrSurnameStartingWith(text);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Iterable<Student> findListStudents(Iterable<Long> ids) {
+        return repository.findAllById(ids);
     }
 }

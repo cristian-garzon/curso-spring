@@ -2,6 +2,7 @@ package com.cursospring.microservicios.app.cursos.entity;
 
 import com.cursopring.microservicios.cammons.examenes.Exams;
 import com.cursospring.microservicios.cammons.students.entity.Student;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -22,19 +23,39 @@ public class Course {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @Transient
     private List<Student> student;
 
+    @JsonIgnoreProperties(value = {"course"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CourseStudent> courseStudents;
+
+
+    public Course() {
+        this.student = new ArrayList<>();
+        this.exam = new ArrayList<>();
+        this.courseStudents = new ArrayList<>();
+    }
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Exams> exam;
+
     @PrePersist
     public void date(){
         this.createAt = new Date();
     }
 
-    public Course() {
-       this.student = new ArrayList<>();
-       this.exam = new ArrayList<>();
+
+    public void setCourseStudents(List<CourseStudent> courseStudents) {
+        this.courseStudents = courseStudents;
+    }
+    public void removeCourseStudents(CourseStudent courseStudents) {
+        this.courseStudents.remove(courseStudents);
+    }
+    public void addCourseStudents(CourseStudent courseStudents) {
+        this.courseStudents.add(courseStudents);
+    }
+    public List<CourseStudent> getCourseStudents() {
+        return courseStudents;
     }
 
     public void setStudent(List<Student> student) {
