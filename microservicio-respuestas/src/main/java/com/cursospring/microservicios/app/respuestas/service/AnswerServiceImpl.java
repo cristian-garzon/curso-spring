@@ -1,27 +1,44 @@
 package com.cursospring.microservicios.app.respuestas.service;
 
-import com.cursoSpring.microservicios.cammons.service.CammonServiceImpl;
+import com.cursopring.microservicios.cammons.examenes.Exams;
+import com.cursospring.microservicios.app.respuestas.client.ExamFeignClient;
 import com.cursospring.microservicios.app.respuestas.entity.Answer;
 import com.cursospring.microservicios.app.respuestas.repository.AnswerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class AnswerServiceImpl extends CammonServiceImpl<Answer, AnswerRepo> implements AnswerService{
+public class AnswerServiceImpl implements AnswerService{
+
+    @Autowired
+    private AnswerRepo repository;
+
+    @Autowired
+    private ExamFeignClient examFeignClient;
+
     @Override
-    @Transactional
     public Iterable<Answer> saveAll(Iterable<Answer> answers) {
                return repository.saveAll(answers);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Iterable<Answer> findAnswerByStudentByExam(Long idStudent, Long idExam) {
-        return repository.findAnswerByStudentByExam(idStudent, idExam);
+    public Iterable<Answer> findAnswerByStudentByQuestion(Long idStudent, Long idExam) {
+        Exams exam = examFeignClient.findExamById(idExam);
+        Iterable<Long> idsQuestions= exam.getQuestions().stream().map(questions -> questions.getId()).collect(Collectors.toList());
+        List<Answer> answers = (List<Answer>) repository.findAnswerByStudentByQuestionId(idStudent, idsQuestions);
+        answers.stream().map(answer -> {
+           exam.getQuestions().forEach(question -> {
+                if(question.getId() == answer.getQuestionId()) answer.setQuestion(question);
+           });
+           return answer;
+        });
+        return answers;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Iterable<Long> findByidExamswhithAnswwerByStudent(Long idStudent) {
         return repository.findByidExamswhithAnswwerByStudent(idStudent);
     }

@@ -2,31 +2,42 @@ package com.cursospring.microservicios.app.respuestas.entity;
 
 import com.cursopring.microservicios.cammons.examenes.Questions;
 import com.cursospring.microservicios.cammons.students.entity.Student;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-@Entity
+@Document(collection = "answers")
 public class Answer {
 
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
 
-    @NotNull
     private String answer;
 
     @Transient
     private Student student;
 
-    @Column(name = "id_student")
     private  Long studentId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @Transient
     private Questions question;
 
-    public void setId(Long id) {
+    private Long questionId;
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,7 +45,7 @@ public class Answer {
         this.answer = answer;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
