@@ -26,8 +26,9 @@ public class AnswerController  {
     }
 
     @GetMapping("/list_answer/{idStudent}/{idExam}")
-    public ResponseEntity<?> listAnswer(@PathVariable Long idStudent, @RequestBody Long idExam){
-        return ResponseEntity.ok(service.findAnswerByStudentByQuestion(idStudent,idExam));
+    public ResponseEntity<?> listAnswer(@PathVariable Long idStudent, @PathVariable Long idExam){
+        Iterable<Answer> answers = service.findAnswerByStudentByQuestion(idStudent,idExam);
+        return ResponseEntity.ok(answers);
     }
 
     @GetMapping("/list_exams/{id}")

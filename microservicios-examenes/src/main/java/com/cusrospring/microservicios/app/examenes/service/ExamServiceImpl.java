@@ -25,6 +25,12 @@ public class ExamServiceImpl extends CammonServiceImpl<Exams, ExamRepo> implemen
 
     @Override
     @Transactional(readOnly = true)
+    public Iterable<Long> findExamsidwithAnswerByQuestionId(Iterable<Long> questionsId) {
+        return repository.findExamsidwithAnswerByQuestionId(questionsId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Subject> listSubject() {
         return subjectRepo.findAll();
     }

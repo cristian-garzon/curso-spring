@@ -7,6 +7,7 @@ import com.cursospring.microservicios.app.respuestas.repository.AnswerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,17 +30,29 @@ public class AnswerServiceImpl implements AnswerService{
         Exams exam = examFeignClient.findExamById(idExam);
         Iterable<Long> idsQuestions= exam.getQuestions().stream().map(questions -> questions.getId()).collect(Collectors.toList());
         List<Answer> answers = (List<Answer>) repository.findAnswerByStudentByQuestionId(idStudent, idsQuestions);
-        answers.stream().map(answer -> {
+        answers = answers.stream().map(answer -> {
            exam.getQuestions().forEach(question -> {
                 if(question.getId() == answer.getQuestionId()) answer.setQuestion(question);
            });
            return answer;
-        });
+        }).collect(Collectors.toList());
         return answers;
     }
 
+
     @Override
-    public Iterable<Long> findByidExamswhithAnswwerByStudent(Long idStudent) {
-        return repository.findByidExamswhithAnswwerByStudent(idStudent);
+    public Iterable<Answer> findAnswerByStudentId(Long studentId) {
+        return repository.findAnswerByStudentId(studentId);
+    }
+
+    @Override
+    public Iterable<Long> findByidExamswhithAnswwerByStudent(Long studentId) {
+        List<Answer> answers =(List<Answer>) repository.findAnswerByStudentId(studentId);
+        List<Long> examsIds = Collections.emptyList();
+        if(answers.size() > 0) {
+            List<Long> questionsIds = answers.stream().map(answer -> answer.getQuestionId()).collect(Collectors.toList());
+             examsIds = (List<Long>) examFeignClient.answered(questionsIds);
+        }
+        return examsIds;
     }
 }

@@ -74,12 +74,15 @@ public class CourseController extends CammonController<Course, CourseService> {
         Course course = service.findByIdAlumno(id);
         if (course == null) return ResponseEntity.notFound().build();
         else {
+
             List<Long> examsid = (List<Long>) service.listExams(id);
-            List<Exams> exams = course.getExam().stream().map(exam -> {
-                if (examsid.contains(exam.getId())) exam.setAnswered(true);
-                return exam;
-            }).collect(Collectors.toList());
-            course.setExam(exams);
+            if(examsid != null && examsid.size() > 0) {
+                List<Exams> exams = course.getExam().stream().map(exam -> {
+                    if (examsid.contains(exam.getId())) exam.setAnswered(true);
+                    return exam;
+                }).collect(Collectors.toList());
+                course.setExam(exams);
+            }
         }
         return ResponseEntity.ok(course);
     }

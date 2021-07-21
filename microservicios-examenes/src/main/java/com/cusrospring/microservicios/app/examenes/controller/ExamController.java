@@ -40,4 +40,10 @@ public class ExamController extends CammonController<Exams, ExamService> {
    public ResponseEntity<?> listsubject(){
       return ResponseEntity.ok(service.listSubject());
    }
+
+   @GetMapping("/answered")
+   public ResponseEntity<?> answered(@RequestParam List<Long> questionIds){
+       return ResponseEntity.ok(service.findExamsidwithAnswerByQuestionId(questionIds));
+   }
+
 }

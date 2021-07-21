@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ExamService extends CammonService<Exams> {
     public List<Exams> search(String name);
-
     public List<Subject> listSubject();
+    public Iterable<Long> findExamsidwithAnswerByQuestionId(Iterable<Long> questionsId);
 }
