@@ -15,11 +15,11 @@ public class Subject {
 
     private String name;
 
-    @JsonIgnoreProperties(value = {"son"})
+    @JsonIgnoreProperties(value = {"son", "handler", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Subject father;
 
-    @JsonIgnoreProperties(value = {"father"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"father", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "father", cascade = CascadeType.ALL )
     private List<Subject> son;
 

@@ -28,9 +28,16 @@ public class Exams {
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Questions> questions;
 
+
+    @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
-    private Subject subject;
+    private Subject subjectFather;
+
+    @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    private Subject subjectson;
 
     public Exams(){
         this.questions = new ArrayList<>();
@@ -94,16 +101,24 @@ public class Exams {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o instanceof Exams ) return false;
+        if (!(o instanceof Exams) ) return false;
         Exams exams = (Exams) o;
         return this.id != null && this.id.equals(exams.getId());
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Subject getSubjectFather() {
+        return subjectFather;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setSubjectFather(Subject subjectFather) {
+        this.subjectFather = subjectFather;
+    }
+
+    public Subject getSubjectson() {
+        return subjectson;
+    }
+
+    public void setSubjectson(Subject subjectson) {
+        this.subjectson = subjectson;
     }
 }

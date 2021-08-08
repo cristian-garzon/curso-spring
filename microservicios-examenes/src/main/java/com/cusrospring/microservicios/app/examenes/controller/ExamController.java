@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 public class ExamController extends CammonController<Exams, ExamService> {
-   @PutMapping("update/{id}")
+   @PutMapping("/edit/{id}")
    public ResponseEntity<?> update(@Valid @RequestBody Exams exam,BindingResult result, @PathVariable Long id){
       if(result.hasErrors()) return this.validation(result);
       Optional<Exams> examupdate = service.findById(id);
@@ -28,6 +28,8 @@ public class ExamController extends CammonController<Exams, ExamService> {
       }
       delete.forEach(examupdate.get()::removeQuestions);
       examupdate.get().setQuestions(exam.getQuestions());
+      examupdate.get().setSubjectson(exam.getSubjectson());
+      examupdate.get().setSubjectFather(exam.getSubjectFather());
       return ResponseEntity.status(HttpStatus.CREATED).body(service.save(examupdate.get()));
    }
 

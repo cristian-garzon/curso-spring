@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RestController
 public class CourseController extends CammonController<Course, CourseService> {
 
-    // inyectamos el valor del balanceador de carga desde el aplication properties
     @Value("${config.balanced.test}")
     private String testBalancer;
 
