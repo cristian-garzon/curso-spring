@@ -2,8 +2,7 @@ package com.cursospring.microservicios.app.users.testing;
 
 import com.cursospring.microservicios.app.users.service.StudentService;
 import com.cursospring.microservicios.cammons.students.entity.Student;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-
+@Tag("userTest")
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.class)
 public class userServiceTest {
 
     @Autowired
@@ -30,6 +30,7 @@ public class userServiceTest {
 
 
     @Test
+    @Order(1)
     @DisplayName("test of user service")
     void searchStudent() {
         assertEquals(6, ((List<Student>) service.list()).size());
@@ -47,6 +48,7 @@ public class userServiceTest {
     }
 
     @Test
+    @Order(2)
     void save() {
         //given
         Student student = new Student();
@@ -63,6 +65,7 @@ public class userServiceTest {
     }
 
     @Test
+    @Order(3)
     @DisplayName("searching two names")
     void search() {
         String name = "paco";
@@ -74,6 +77,7 @@ public class userServiceTest {
 
     @Test
     void durationSaveUser() {
+
         assertTimeout(Duration.ofSeconds(1), () -> {
             Student student = new Student();
             // where
